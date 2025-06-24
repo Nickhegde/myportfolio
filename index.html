@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Nikhil Hegde - Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Matrix-style animated background -->
+    <canvas id="matrix"></canvas>
+
+    <header>
+        <nav>
+            <div class="nav-title green-color">Nikhil Hegde</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="intro">
+        <div class="intro-container">
+            <h1 class="intro-title">Hi I'm 
+                <span class="intro-name-highlight green-color">Nikhil Hegde</span>
+            </h1>
+            <h2 class="intro-subtitle" id="intro-subtitle"></h2>
+            <p class="intro-description">Passionate Software Engineering graduate student at The University of Texas at Dallas with 5 years of hands-on experience in software development, and solutions architecture across global tech companies.</p>
+        </div>
+    </section>
+
+    <section id="about" class="about fade-in-on-scroll">
+        <div class="about-wrapper">
+            <div class="about-image">
+                <img src="./assets/profile-img.jpeg" alt="Nikhil Hegde" />
+            </div>
+            <div class="about-info">
+                <h2 class="about-name">Nikhil Hegde</h2>
+                <p><strong>Open to roles:</strong></p>
+                <ul class="about-roles">
+                    <li>Software Engineer</li>
+                    <li>Front-end Developer</li>
+                    <li>Full Stack Developer</li>
+                    <li>Data Engineer</li>
+                </ul>
+        
+                <p><strong>Email:</strong><br>
+                    <a href="mailto:nikhilhegde81@gmail.com" class="white-color email-link">
+                        nikhilhegde81@gmail.com
+                    </a>
+                </p>
+        
+                <p><strong>Address:</strong><br>
+                    Dallas, TX (willing to relocate)
+                </p>
+        
+                <!-- Buttons -->
+                <div class="about-buttons">
+                    <a href="./assets/NIKHIL_HEGDE_Resume.pdf" target="_blank" class="btn-dark white-color">
+                    View my Resume →
+                    </a>
+                    <a href="#contact" class="btn-dark white-color">Contact me</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section fade-in-on-scroll" id="education">
+        <div class="container">
+          <h2 class="section-title green-color">Education</h2>
+          <div class="two-col-flex">
+            <div class="resume-item">
+              <h3 class="green-color">Master’s in Science, Computer Software Engineering</h3>
+              <span class="location-date">
+                <strong>University of Texas at Dallas</strong> (Aug 2024 - May 2026)
+              </span>
+              <p>
+                Relevant Coursework: Data Structures and Algorithms, Advance Software Architecture,
+                Object Oriented Programming, Advance Requirements Engineering, Software Testing and Validation,
+                Web Programming Languages
+              </p>
+            </div>
+    
+            <div class="resume-item">
+              <h3 class="green-color">Bachelor of Science, Electrronics and Communications</h3>
+              <span class="location-date">
+                <strong>NMAM Institute of Technology</strong> (Aug 2014 - June 2018)
+              </span>
+              <p>
+                Relevant Coursework: Java Programming, Introduction to C++
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section fade-in-on-scroll" id="experience">
+        <div class="container">
+          <h2 class="section-title green-color">Professional Experience</h2>
+          <div class="resume-item experience-item">
+            <h3>CS Outreach Lead | University of Texas at Dallas </h3>
+            <span class="location-date">Oct 2024 - Present, Dallas, TX</span>
+            <ul class="resume-list">
+              <li>Led the development and maintenance of a Java Spring Boot web application for scheduling, managing mentor-led classes, and tracking student registrations and attendance..</li>
+              <li>Designed and implemented RESTful APIs to support new features, improving system functionality and user engagement.</li>
+              <li>Integrated Spring Java Mail for automated email reminders and confirmations, enhancing communication efficiency and user experience.</li>
+              <li>Maintained system performance and stability through regular updates, UI enhancements, and effective version control practices.</li>
+            </ul>
+          </div>
+    
+          <div class="resume-item experience-item">
+            <h3>Senior Solutions Engineer | Whatfix</h3>
+            <span class="location-date">Mar 2024 - Jul 2024, Bengaluru, India</span>
+            <ul class="resume-list">
+              <li>Spearheaded end-to-end implementation of Digital Adoption Platform (DAP) solutions for 10+ enterprise clients, customizing workflows and UI components to drive user engagement.</li>
+              <li>Led successful onboarding and analytics integration for Berger Levrault and Bbraun, improving their digital adoption metrics and contributing to a 60% uplift in product utilization.</li>
+              <li>Engineered tailored JavaScript solutions and event tracking mechanisms to optimize platform performance and deliver actionable insights.</li>
+              <li>Collaborated with cross-functional teams on usability testing and created training modules, reducing implementation cycles by 35%.</li>
+            </ul>
+          </div>
+    
+          <div class="resume-item experience-item">
+            <h3>Solutions Engineer | Inmobi</h3>
+            <span class="location-date">Jan 2022 - Nov 2023, Bengaluru, India</span>
+            <ul class="resume-list">
+              <li>Designed and deployed automated campaign performance dashboards using the MERN stack and Azure APIs, enhancing transparency and reducing data retrieval time by 70%.</li>
+              <li>Streamlined data engineering processes by leveraging PySpark and Azure Notebooks, minimizing manual workload and improving operational efficiency.</li>
+              <li>Developed secure access protocols and data visualization tools for internal and external teams, strengthening compliance and reducing unauthorized access incidents.</li>
+              <li>Implemented scalable automation for reporting and QA workflows, resulting in a 40% decrease in turnaround time for campaign metrics delivery.</li>
+              <li>Led technical integrations for StoreKit ad network campaigns on iOS, ensuring seamless performance tracking and compliance with Apple's privacy standards.</li>
+            </ul>
+          </div>
+    
+          <div class="resume-item experience-item">
+            <h3>Senior Web Developer | Inmobi</h3>
+            <span class="location-date">July 2021 - Jan 2022, Bengaluru, India</span>
+            <ul class="resume-list">
+              <li>Developed over 100 interactive and responsive rich media ad units using Celtra, HTML, CSS, and JavaScript, contributing to enhanced brand visibility and user engagement.</li>
+              <li>Engineered advanced customizations within Celtra's platform to optimize ad rendering, boosting overall delivery rate by 20%.</li>
+              <li>Created a React-based internal gallery platform to catalog and showcase creatives for client presentations, improving business acquisition efforts.</li>
+              <li>Collaborated with creative teams to develop brand-compliant ad experiences tailored for global markets, ensuring optimal user experience across platforms.</li>
+              <li>Mentored junior engineers and provided technical guidance on front-end best practices, improving team code quality and development velocity</li>
+            </ul>
+          </div>
+
+          <div class="resume-item experience-item">
+            <h3>Software Engineer | Y Media Labs</h3>
+            <span class="location-date">Aug 2018 - July 2021, Bengaluru, India</span>
+            <ul class="resume-list">
+              <li>•	Led front-end development of State Farm's 100forGood website and CMS portal using React JS and Redux, increasing web performance by 30% and accessibility by 40%.</li>
+              <li>Resolved over 20 high-priority production issues in the Hill-Rom CMS platform within tight deadlines, improving system stability and client satisfaction.</li>
+              <li>Presented a proof-of-concept AR-based e-commerce experience (AR JS) to leadership, showcasing innovation and potential for retail digital transformation.</li>
+              <li>Contributed to code optimization and modularization strategies, enabling easier scalability and reducing page load times across applications.</li>
+              <li>Recognized with two “YML Quarterly Awards” for leadership, on-time delivery, and mentoring junior developers in advanced front-end techniques.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="skills">
+        <div class="container fade-in-on-scroll visible">
+          <h2 class="section-title green-color">Tools &amp; Technologies</h2>
+          <div class="tools-grid">
+            <div class="tool-item" title="HTML5">
+              <img src="./assets/html.png" alt="HTML5">
+            </div>
+            <div class="tool-item" title="CSS3">
+              <img src="./assets/css3.png" alt="CSS3">
+            </div>
+            <div class="tool-item" title="JavaScript">
+              <img src="./assets/javascript.png" alt="JavaScript">
+            </div>
+            <div class="tool-item" title="TypeScript">
+              <img src="./assets/typescript.png" alt="TypeScript">
+            </div>
+            <div class="tool-item" title="React JS">
+              <img src="./assets/react.png" alt="React JS">
+            </div>
+            <div class="tool-item" title="Node JS">
+              <img src="./assets/nodejs.png" alt="Node JS">
+            </div>
+            <div class="tool-item" title="Redux">
+                <img src="./assets/redux.png" alt="Redux">
+              </div>
+            <div class="tool-item" title="Python">
+              <img src="./assets/python.png" alt="Python">
+            </div>
+            <div class="tool-item" title="Java">
+              <img src="./assets/java.png" alt="Java">
+            </div>
+            <div class="tool-item" title="Pyspark">
+                <img src="./assets/pyspark.png" alt="Pyspark">
+            </div>
+            <div class="tool-item" title="NextJS">
+                <img src="./assets/nextjs.png" alt="NextJS">
+            </div>
+            <div class="tool-item" title="MySQL">
+                <img src="./assets/mysql.png" alt="MySQL">
+            </div>
+            <div class="tool-item" title="MongoDB">
+              <img src="./assets/mongodb.png" alt="MongoDB">
+            </div>
+            <div class="tool-item" title="Databricks">
+              <img src="./assets/databricks.png" alt="Databricks">
+            </div>
+            <div class="tool-item" title="Docker">
+                <img src="./assets/docker.png" alt="Docker">
+            </div>
+            <div class="tool-item" title="Azure">
+                <img src="./assets/azure.png" alt="Azure">
+            </div>
+            <div class="tool-item" title="Git">
+                <img src="./assets/Git.png" alt="Git">
+            </div>
+            <div class="tool-item" title="Celtra">
+                <img class="background-black" src="./assets/celtra.png" alt="Celtra">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="container fade-in-on-scroll visible">
+          <h2 class="section-title green-color">PROJECTS</h2>
+    
+          <!-- First Row of Projects -->
+          <div class="custom-projects-grid">
+            <!-- Project 1 -->
+            <div class="custom-project-card project1-card-details">
+                <div class="custom-project-img-container">
+                    <img src="https://content.presspage.com/templates/540/1441/580294/state-farm-logo-ovals.svg" alt="100forGood" class="custom-project-img">
+                </div>
+                <h3>
+                    <a href="https://newsroom.statefarm.com/100-for-good/" class="custom-project-title" target="_blank">
+                        100 for Good
+                    </a>
+                </h3>
+                <div class="custom-project-details project1-details">
+                    <p class="custom-tech-stack">React JS | Node JS | PWA | Accessibility</p>
+                    <p class="custom-project-desc">
+                        Developed and and led a front-end team to build a  Web App for State Farm's 100forGood initiative, which helps the agents and employees of State Farm,
+                        to record their acts of good celebrating the 100th anniversary of the company. The app is built using React JS, Node JS, and Springboot with 
+                        accessibility features to ensure inclusivity.
+                    </p>
+                </div>
+            </div>
+    
+            <!-- Project 2 -->
+            <div class="custom-project-card project2-card-details">
+                <div class="custom-project-img-container">
+                    <img src="https://dashboard.inmobi.com/static/media/logo.c64050115fe7a9ae451b.png" alt="InmobiDashboard" class="custom-project-img">
+                </div>
+                <h3>
+                    <a href="https://dashboard.inmobi.com/" class="custom-project-title" target="_blank">
+                    Inmobi DSP Reporting Dashboard
+                    </a>
+                </h3>
+                <div class="custom-project-details project2-details">
+                    <p class="custom-tech-stack">
+                        React JS | Node JS | MongoDB | Pyspark | Microsoft Azure APIs
+                    </p>
+                    <p class="custom-project-desc">
+                        Developed an automated reporting dashboard for Inmobi's Demand Side Platform (DSP) using React JS, Node JS, and MongoDB.
+                        The dashboard integrates with Microsoft Azure APIs to fetch campaign performance data, enabling real-time reporting and
+                        analytics for advertisers. It features advanced data visualization techniques to present key metrics and insights.
+                    </p>
+                </div>
+            </div>
+    
+            <!-- Project 3 -->
+            <div class="custom-project-card project3-card-details">
+                <div class="custom-project-img-container">
+                    <img src="./assets/ar.png" alt="AR Shopping World" class="custom-project-img">
+                </div>
+                <h3>
+                    <a href="https://arshoppingworld.netlify.app/" class="custom-project-title" target="_blank">
+                    AR Shopping World
+                    </a>
+                </h3>
+                <div class="custom-project-details project3-details">
+                    <p class="custom-tech-stack">
+                        React JS | AR.js | Firebase
+                    </p>
+                    <p class="custom-project-desc">
+                        Developed an Augmented Reality (AR) shopping experience using React JS and AR.js, allowing users to visualize products in their environment before purchase.
+                        The project integrates Firebase for real-time data storage and user authentication, providing a seamless shopping experience.
+                    </p>
+                </div>
+            </div>
+
+             <!-- Project 4 -->
+             <div class="custom-project-card project4-card-details">
+                <div class="custom-project-img-container">
+                    <img src="./assets/calendar.png" alt="Accessible Calendar" class="custom-project-img">
+                </div>
+                <h3>
+                    <a href="https://www.npmjs.com/package/react-accessible-calendar" class="custom-project-title" target="_blank">
+                    React Accessible Calendar
+                    </a>
+                </h3>
+                <div class="custom-project-details project4-details">
+                    <p class="custom-tech-stack">
+                        React JS | JavaScript | HTML5 | CSS3 | Accessibility
+                    </p>
+                    <p class="custom-project-desc">
+                        Developed an accessible calendar component for React applications, ensuring compliance with WCAG 2.1 standards.
+                        The component supports keyboard navigation, screen readers, and high-contrast themes, making it usable for all users, including those with disabilities.
+                        It is available as an open-source package on npm, allowing developers to easily integrate it into their projects.
+                    </p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section class="section fade-in-on-scroll visible" id="contact">
+        <div class="container">
+          <h2 class="section-title">Contact</h2>
+    
+          <div class="contact-details">
+            <p><strong>Phone:</strong> <a href="tel:5129926442" class="green-color">512-992-6442</a></p>
+            <p><strong>Email:</strong> <a href="mailto:nikhilhegde81@gmail.com" class="green-color">nikhilhegde81@gmail.com</a></p>
+            <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/hegde-nikhil/" target="_blank" class="green-color">linkedin.com/in/hegde-nikhil</a></p>
+          </div>
+    
+          <!-- Optional contact form using Formspree -->
+          <form action="https://formspree.io/f/xldnwgpv" method="POST" class="contact-form">
+            <label for="cf-name">Name</label>
+            <input type="text" id="cf-name" name="name" placeholder="Your Name" required="" data-sharkid="__0" data-sharklabel="name">
+    
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="_replyto" placeholder="Your Email" required="" data-sharkid="__1" data-sharklabel="email">
+    
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="5" placeholder="Your Message" required="" data-sharkid="__2"></textarea>
+    
+            <button type="submit" class="btn form-btn">Send Message</button>
+          <shark-icon-container data-sharkidcontainer="__1"></shark-icon-container></form>
+        </div>
+      </section>
+    <script src="script.js"></script>
+</body>
+</html>
