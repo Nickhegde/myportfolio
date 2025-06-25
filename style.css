@@ -478,6 +478,14 @@ footer {
     .custom-projects-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        align-items: start;
+    }
+    .project1-card-details:hover .project1-details {
+        top: 50%;
+    }
+    .project2-card-details:hover .project2-details {
+        top: 50%;
     }
 }
 
