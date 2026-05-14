@@ -96,10 +96,46 @@ PROJECTS
 4. AR Shopping World (arshoppingworld.netlify.app) — React JS, AR.js, Firebase | AR e-commerce experience
 5. React Accessible Calendar (npm) — React, JS, WCAG 2.1 | Open-source accessible calendar component
 
+DISTRIBUTED SYSTEMS & CLOUD ARCHITECTURE
+Nikhil has hands-on experience designing and operating distributed systems:
+
+InMobi Campaign Reporting Pipeline (Production):
+- Built end-to-end distributed data pipeline: Ad Server → Apache Kafka (Azure Event Hubs) → Azure Databricks (PySpark micro-batch streaming, 5-min intervals) → Azure Synapse Analytics + Azure Data Lake Gen2 → Node.js REST API → React Dashboard
+- Owned SLA contracts between layers: MMP postbacks ingested within seconds, Spark jobs every 5 mins, dashboard queries under 500ms
+- Key trade-off decisions: chose micro-batch over true streaming (cheaper, sufficient for business need); pre-aggregated metrics over raw queries (fast dashboards at cost of ad-hoc flexibility)
+- Debugged cross-layer data discrepancies by tracing events from MMP postback through to query result
+- Fixed a skewed Spark partition key issue (one advertiser had 10x more events) by repartitioning on composite key — reduced job time from 3+ hours to under 40 minutes
+
+PERFORMANCE & DATABASE OPTIMIZATION
+- Diagnosed a slow PostgreSQL report query (6-8 seconds) in CSMC Spring Boot app using EXPLAIN ANALYZE — found sequential scan caused by high NULL density in semester_code column (added late in project, historical rows had NULLs)
+- Fix: created a partial index (WHERE semester_code IS NOT NULL) — query switched from sequential scan to index scan, load time dropped to under 400ms
+- Correctly ruled out Redis caching as over-engineering for a single-user monthly report
+
+SYSTEM DESIGN KNOWLEDGE
+- API design for high-volume uploads: async job queue pattern (POST returns job_id immediately, workers process via Kafka/SQS, GET endpoint for status polling), rate limiting, validation layer, horizontal worker scaling
+- Scaling strategies: stateless services, load balancing, Redis caching, queue-based async processing, database partitioning, read replicas, columnar storage for analytics
+- 100ms latency systems (real-time bidding): hot path in-memory (Redis ~1ms vs DB 10-50ms), precomputed scores, async logging, timeout budgets per step
+- Debugging metric discrepancies: scoping constant vs random offsets, timezone/attribution window checks, deduplication logic, raw log comparison, SQL join analysis
+
+OAUTH2 & API INTEGRATION (Whatfix)
+- Implemented OAuth 2.0 with Azure AD for enterprise clients — handled token exchange, scope mismatches, token expiry edge cases (refresh token requested if expiry within 5 mins)
+- Built exponential backoff with jitter for SDK retries (1s → 2s → 4s → 8s, up to 5-6 attempts)
+- Debugged silent failures from JWT claim renames during phased Azure AD migrations — added defensive validation so future schema changes fail loudly with alerts
+
+SMART AMENITIES ASSISTANCE SYSTEM (Academic Project — UTD SE 6387, May 2026)
+- Project Manager and Frontend Lead for a team of 4
+- Built an Android app (Kotlin, Jetpack Compose, MVVM, Hilt) for passenger navigation inside DFW Terminal D
+- Backend: Python FastAPI deployed on AWS EC2 (Docker), Amazon RDS MySQL 8.0, Dijkstra shortest-path routing via NetworkX on a 14-node Terminal D routing graph
+- Features: accessibility-aware routing (wheelchair step-free paths), real-time amenity status, crowd level tracking, dynamic rerouting on amenity closure, offline resilience via Room SQLite cache (15-min)
+- Key architectural decision: chose modular monolith over microservices — avoided service discovery overhead on a t2.micro; clean module boundaries maintained testability
+- JWT stateless auth (python-jose, HS256) — eliminated DB tokens table and consistency bugs
+- Delivered all milestones on schedule across 2 iterations; 100% requirements traceability
+- Tech: Kotlin, Jetpack Compose, Python, FastAPI, MySQL, AWS EC2, Docker, NetworkX, JWT
+
 AVAILABILITY & JOB SEARCH
 - Actively looking for full-time roles
 - Open to: Software Engineer, Front-end, Full Stack, Solutions Engineer, Data Engineer
-- Graduating May 2026, available for full-time immediately after (or potentially sooner with part-time/co-op)
+- Graduated in May 2026, available for full-time immediately from June 2026 (OPT work authorization)
 - Willing to relocate
 `;
 
