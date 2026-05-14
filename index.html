@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Nikhil Hegde - Portfolio</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./chatbot.css" />
+    <script type="module" src="./script.js"></script>
+     <script defer src="./chatbot.js"></script>
 </head>
 <body>
     <!-- Matrix-style animated background -->
@@ -107,7 +110,7 @@
             <h3>CS Outreach Lead | University of Texas at Dallas </h3>
             <span class="location-date">Oct 2024 - Present, Dallas, TX</span>
             <ul class="resume-list">
-              <li>Led the development and maintenance of a Java Spring Boot web application for scheduling, managing mentor-led classes, and tracking student registrations and attendance..</li>
+              <li>Led the development and maintenance of a Java Spring Boot web application for scheduling, managing mentor-led classes, and tracking student registrations and attendance.</li>
               <li>Designed and implemented RESTful APIs to support new features, improving system functionality and user engagement.</li>
               <li>Integrated Spring Java Mail for automated email reminders and confirmations, enhancing communication efficiency and user experience.</li>
               <li>Maintained system performance and stability through regular updates, UI enhancements, and effective version control practices.</li>
@@ -234,6 +237,25 @@
             <!-- Project 1 -->
             <div class="custom-project-card project1-card-details">
                 <div class="custom-project-img-container">
+                    <img src="./assets/csmc-logo.png" alt="CSMC" class="custom-project-img">
+                </div>
+                <h3>
+                    <a href="https://csmc.utdallas.edu/" class="custom-project-title" target="_blank">
+                        CSMC
+                    </a>
+                </h3>
+                <div class="custom-project-details project1-details">
+                    <p class="custom-tech-stack">Java | Springboot | Twig | FullStack</p>
+                    <p class="custom-project-desc">
+                        Led the development and maintenance of a Java Spring Boot web application for scheduling, managing mentor-led classes, and tracking student
+                        registrations and attendance.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="custom-project-card project1-card-details">
+                <div class="custom-project-img-container">
                     <img src="https://content.presspage.com/templates/540/1441/580294/state-farm-logo-ovals.svg" alt="100forGood" class="custom-project-img">
                 </div>
                 <h3>
@@ -251,10 +273,10 @@
                 </div>
             </div>
     
-            <!-- Project 2 -->
+            <!-- Project 3 -->
             <div class="custom-project-card project2-card-details">
                 <div class="custom-project-img-container">
-                    <img src="https://dashboard.inmobi.com/static/media/logo.c64050115fe7a9ae451b.png" alt="InmobiDashboard" class="custom-project-img">
+                    <img src="./assets/inmobi-logo.png" alt="InmobiDashboard" class="custom-project-img">
                 </div>
                 <h3>
                     <a href="https://dashboard.inmobi.com/" class="custom-project-title" target="_blank">
@@ -273,7 +295,7 @@
                 </div>
             </div>
     
-            <!-- Project 3 -->
+            <!-- Project 4 -->
             <div class="custom-project-card project3-card-details">
                 <div class="custom-project-img-container">
                     <img src="./assets/ar.png" alt="AR Shopping World" class="custom-project-img">
@@ -294,7 +316,7 @@
                 </div>
             </div>
 
-             <!-- Project 4 -->
+             <!-- Project 5 -->
              <div class="custom-project-card project4-card-details">
                 <div class="custom-project-img-container">
                     <img src="./assets/calendar.png" alt="Accessible Calendar" class="custom-project-img">
@@ -318,8 +340,6 @@
           </div>
         </div>
       </section>
-
-
 
       <section class="section fade-in-on-scroll visible" id="contact">
         <div class="container">
@@ -346,6 +366,73 @@
           <shark-icon-container data-sharkidcontainer="__1"></shark-icon-container></form>
         </div>
       </section>
-    <script src="script.js"></script>
+      <!-- AI Chatbot -->
+    <div>
+      <button id="nh-chat-fab" title="Chat with AI about Nikhil" aria-label="Open AI chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <circle cx="9" cy="10" r="1" fill="white" stroke="none"/>
+          <circle cx="12" cy="10" r="1" fill="white" stroke="none"/>
+          <circle cx="15" cy="10" r="1" fill="white" stroke="none"/>
+        </svg>
+      </button>
+
+      <!-- Chat Panel -->
+      <div id="nh-chat-panel" role="dialog" aria-label="Chat about Nikhil Hegde">
+        <!-- Header -->
+        <div id="nh-chat-header">
+          <div class="nh-avatar">🤖</div>
+          <div class="nh-header-info">
+            <div class="nh-header-name">Ask about Nikhil</div>
+            <div class="nh-header-status">● Online · powered by Claude</div>
+          </div>
+          <button id="nh-close-btn" aria-label="Close chat">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Messages -->
+        <div id="nh-messages">
+          <div class="nh-msg bot">
+            <div class="nh-msg-icon">🤖</div>
+            <div class="nh-bubble">
+              Hey! 👋 I'm Nikhil's AI assistant. Ask me anything about his skills, experience, projects, education, or background — I'm here to help!
+            </div>
+          </div>
+        </div>
+
+        <!-- Typing indicator -->
+        <div id="nh-typing">
+          <div style="width:28px;flex-shrink:0;"></div>
+          <div class="nh-typing-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <!-- Suggested questions -->
+        <div id="nh-suggestions">
+          <button class="nh-suggestion" onclick="askSuggestion(this)">Does he know JavaScript?</button>
+          <button class="nh-suggestion" onclick="askSuggestion(this)">Ad tech experience?</button>
+          <button class="nh-suggestion" onclick="askSuggestion(this)">Is he in the US?</button>
+          <button class="nh-suggestion" onclick="askSuggestion(this)">Visa status?</button>
+          <button class="nh-suggestion" onclick="askSuggestion(this)">What stack does he use?</button>
+          <button class="nh-suggestion" onclick="askSuggestion(this)">Open to work?</button>
+        </div>
+
+        <!-- Input -->
+        <div id="nh-chat-footer">
+          <input id="nh-input" type="text" placeholder="Ask anything about Nikhil…" autocomplete="off" />
+          <button id="nh-send-btn" onclick="sendMessage()" aria-label="Send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+        <div class="nh-powered">Powered by Anthropic Claude</div>
+      </div>
+    </div>
 </body>
 </html>

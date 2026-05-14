@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nikhil Chatbot Widget</title>
+  <style>
+    /* ─── Floating Button ─────────────────────────────────── */
+    #nh-chat-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 99999;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25af1d;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 0 0 rgba(37,175,29,0.7);
+      animation: nh-pulse 2.5s infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, background 0.2s;
+    }
+    #nh-chat-fab:hover { transform: scale(1.1); background: #1d9417; }
+    #nh-chat-fab svg { width: 28px; height: 28px; }
+
+    @keyframes nh-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(37,175,29,0.7); }
+      70%  { box-shadow: 0 0 0 14px rgba(37,175,29,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,175,29,0); }
+    }
+
+    /* ─── Chat Panel ──────────────────────────────────────── */
+    #nh-chat-panel {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      z-index: 99998;
+      width: 370px;
+      max-height: 560px;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: rgba(10,10,10,0.97);
+      border: 1px solid rgba(37,175,29,0.4);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(37,175,29,0.1);
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      transform: scale(0.85) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+    }
+    #nh-chat-panel.open {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Header */
+    #nh-chat-header {
+      background: linear-gradient(135deg, #0d1f0c 0%, #0a1a09 100%);
+      border-bottom: 1px solid rgba(37,175,29,0.3);
+      padding: 14px 16px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nh-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25af1d, #1d9417);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .nh-avatar::after {
+      content: '';
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      width: 9px;
+      height: 9px;
+      background: #25af1d;
+      border-radius: 50%;
+      border: 2px solid #0d1f0c;
+      animation: nh-blink 2s infinite;
+    }
+    @keyframes nh-blink {
+      0%,100% { opacity:1 } 50% { opacity:0.4 }
+    }
+    .nh-header-info { flex: 1; }
+    .nh-header-name { color: #25af1d; font-weight: 700; font-size: 14px; letter-spacing: 0.3px; }
+    .nh-header-status { color: rgba(255,255,255,0.45); font-size: 11px; margin-top: 1px; }
+    #nh-close-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+      display: flex;
+    }
+    #nh-close-btn:hover { color: white; background: rgba(255,255,255,0.08); }
+
+    /* Messages */
+    #nh-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(37,175,29,0.3) transparent;
+    }
+    #nh-messages::-webkit-scrollbar { width: 4px; }
+    #nh-messages::-webkit-scrollbar-track { background: transparent; }
+    #nh-messages::-webkit-scrollbar-thumb { background: rgba(37,175,29,0.3); border-radius: 4px; }
+
+    .nh-msg {
+      display: flex;
+      gap: 8px;
+      animation: nh-msgIn 0.2s ease;
+    }
+    @keyframes nh-msgIn {
+      from { opacity:0; transform: translateY(6px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .nh-msg.user { flex-direction: row-reverse; }
+
+    .nh-bubble {
+      max-width: 78%;
+      padding: 9px 13px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: white;
+    }
+    .nh-msg.bot .nh-bubble {
+      background: rgba(37,175,29,0.13);
+      border: 1px solid rgba(37,175,29,0.25);
+      border-bottom-left-radius: 4px;
+    }
+    .nh-msg.user .nh-bubble {
+      background: rgba(37,175,29,0.85);
+      color: #000;
+      font-weight: 500;
+      border-bottom-right-radius: 4px;
+    }
+
+    .nh-msg-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+    .nh-msg.bot .nh-msg-icon { background: rgba(37,175,29,0.2); }
+    .nh-msg.user .nh-msg-icon { background: rgba(37,175,29,0.3); }
+
+    /* Typing indicator */
+    #nh-typing {
+      display: none;
+      gap: 8px;
+      align-items: center;
+    }
+    #nh-typing.visible { display: flex; }
+    .nh-typing-dots {
+      display: flex;
+      gap: 4px;
+      padding: 10px 14px;
+      background: rgba(37,175,29,0.1);
+      border: 1px solid rgba(37,175,29,0.2);
+      border-radius: 14px;
+      border-bottom-left-radius: 4px;
+    }
+    .nh-typing-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #25af1d;
+      animation: nh-dot 1.2s infinite;
+    }
+    .nh-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .nh-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes nh-dot {
+      0%,60%,100% { transform: translateY(0); opacity:0.5; }
+      30%          { transform: translateY(-5px); opacity:1; }
+    }
+
+    /* Suggested questions */
+    #nh-suggestions {
+      padding: 0 14px 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .nh-suggestion {
+      background: rgba(37,175,29,0.1);
+      border: 1px solid rgba(37,175,29,0.3);
+      color: #25af1d;
+      border-radius: 20px;
+      padding: 5px 11px;
+      font-size: 11.5px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      font-family: inherit;
+    }
+    .nh-suggestion:hover {
+      background: rgba(37,175,29,0.22);
+      transform: translateY(-1px);
+    }
+
+    /* Input */
+    #nh-chat-footer {
+      border-top: 1px solid rgba(37,175,29,0.2);
+      padding: 10px 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: rgba(5,5,5,0.95);
+    }
+    #nh-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(37,175,29,0.3);
+      border-radius: 10px;
+      color: white;
+      font-family: inherit;
+      font-size: 13px;
+      padding: 9px 12px;
+      outline: none;
+      transition: border-color 0.15s;
+      resize: none;
+      height: 38px;
+      line-height: 1.4;
+    }
+    #nh-input:focus { border-color: rgba(37,175,29,0.7); }
+    #nh-input::placeholder { color: rgba(255,255,255,0.3); }
+
+    #nh-send-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #25af1d;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, transform 0.1s;
+      flex-shrink: 0;
+    }
+    #nh-send-btn:hover:not(:disabled) { background: #1d9417; transform: scale(1.05); }
+    #nh-send-btn:disabled { background: rgba(37,175,29,0.3); cursor: not-allowed; }
+    #nh-send-btn svg { width: 18px; height: 18px; }
+
+    /* Powered by */
+    .nh-powered {
+      text-align: center;
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      padding: 4px 0 6px;
+    }
+
+    /* Mobile */
+    @media (max-width: 420px) {
+      #nh-chat-panel { width: calc(100vw - 24px); right: 12px; bottom: 84px; }
+      #nh-chat-fab { bottom: 16px; right: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- FAB Button -->
+<button id="nh-chat-fab" title="Chat with AI about Nikhil" aria-label="Open AI chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <circle cx="9" cy="10" r="1" fill="white" stroke="none"/>
+    <circle cx="12" cy="10" r="1" fill="white" stroke="none"/>
+    <circle cx="15" cy="10" r="1" fill="white" stroke="none"/>
+  </svg>
+</button>
+
+<!-- Chat Panel -->
+<div id="nh-chat-panel" role="dialog" aria-label="Chat about Nikhil Hegde">
+  <!-- Header -->
+  <div id="nh-chat-header">
+    <div class="nh-avatar">🤖</div>
+    <div class="nh-header-info">
+      <div class="nh-header-name">Ask about Nikhil</div>
+      <div class="nh-header-status">● Online · powered by Claude</div>
+    </div>
+    <button id="nh-close-btn" aria-label="Close chat">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Messages -->
+  <div id="nh-messages">
+    <div class="nh-msg bot">
+      <div class="nh-msg-icon">🤖</div>
+      <div class="nh-bubble">
+        Hey! 👋 I'm Nikhil's AI assistant. Ask me anything about his skills, experience, projects, education, or background — I'm here to help!
+      </div>
+    </div>
+  </div>
+
+  <!-- Typing indicator -->
+  <div id="nh-typing">
+    <div style="width:28px;flex-shrink:0;"></div>
+    <div class="nh-typing-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- Suggested questions -->
+  <div id="nh-suggestions">
+    <button class="nh-suggestion" onclick="askSuggestion(this)">Does he know JavaScript?</button>
+    <button class="nh-suggestion" onclick="askSuggestion(this)">Ad tech experience?</button>
+    <button class="nh-suggestion" onclick="askSuggestion(this)">Is he in the US?</button>
+    <button class="nh-suggestion" onclick="askSuggestion(this)">Visa status?</button>
+    <button class="nh-suggestion" onclick="askSuggestion(this)">What stack does he use?</button>
+    <button class="nh-suggestion" onclick="askSuggestion(this)">Open to work?</button>
+  </div>
+
+  <!-- Input -->
+  <div id="nh-chat-footer">
+    <input id="nh-input" type="text" placeholder="Ask anything about Nikhil…" autocomplete="off" />
+    <button id="nh-send-btn" onclick="sendMessage()" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="2" x2="11" y2="13"/>
+        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+      </svg>
+    </button>
+  </div>
+  <div class="nh-powered">Powered by Anthropic Claude</div>
+</div>
+
+<script>
+// ─── Toggle ──────────────────────────────────────────────
+const fab = document.getElementById('nh-chat-fab');
+const panel = document.getElementById('nh-chat-panel');
+const input = document.getElementById('nh-input');
+
+fab.addEventListener('click', () => {
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) input.focus();
+});
+document.getElementById('nh-close-btn').addEventListener('click', () => {
+  panel.classList.remove('open');
+});
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+// ─── Conversation history ─────────────────────────────────
+const conversationHistory = [];
+
+// ─── Nikhil's Profile (system prompt) ────────────────────
+const SYSTEM_PROMPT = `You are a friendly, concise AI assistant embedded in Nikhil Hegde's portfolio website. 
+Answer questions about Nikhil based ONLY on the information below. If something isn't covered, say you don't have that info but suggest the visitor contact Nikhil directly.
+
+Keep answers conversational, warm, and 2-4 sentences max unless a detailed list is clearly needed.
+Never make up information. Always stay on-topic about Nikhil.
+
+=== NIKHIL HEGDE — PROFILE ===
+
+PERSONAL
+- Full name: Nikhil Hegde
+- Location: Dallas, TX (willing to relocate)
+- Email: nikhilhegde81@gmail.com
+- Phone: 512-992-6442
+- LinkedIn: linkedin.com/in/hegde-nikhil
+- Visa/Status: On F-1 student visa (OPT eligible upon graduation in May 2026); authorized to work in the US
+
+EDUCATION
+- M.S. Computer Software Engineering — University of Texas at Dallas (Aug 2024 – May 2026)
+  Courses: Data Structures & Algorithms, Advanced Software Architecture, OOP, Advanced Requirements Engineering, Software Testing & Validation, Web Programming Languages
+- B.S. Electronics & Communications — NMAM Institute of Technology (2014–2018)
+  Courses: Java Programming, Introduction to C++
+
+OPEN TO ROLES
+- Software Engineer, Front-end Developer, Full Stack Developer, Solutions Engineer, Data Engineer
+
+PROFESSIONAL EXPERIENCE (5+ years total)
+
+1. CS Outreach Lead | University of Texas at Dallas (Oct 2024 – Present)
+   - Java Spring Boot web app for scheduling, managing mentor-led classes, student registrations & attendance
+   - RESTful APIs for new features; Spring Java Mail for automated email reminders
+   - Version control, UI enhancements, system stability
+
+2. Senior Solutions Engineer | Whatfix (Mar 2024 – Jul 2024, Bengaluru, India)
+   - Implemented Digital Adoption Platform (DAP) for 10+ enterprise clients
+   - 60% uplift in product utilization for clients like Berger Levrault and Bbraun
+   - Custom JavaScript solutions, event tracking, usability testing
+   - Reduced implementation cycles by 35%
+
+3. Solutions Engineer | InMobi (Jan 2022 – Nov 2023, Bengaluru, India)
+   - Automated campaign performance dashboards using MERN stack + Azure APIs; 70% reduction in data retrieval time
+   - PySpark + Azure Notebooks for data engineering
+   - StoreKit ad network integration for iOS (Apple privacy standards)
+   - 40% decrease in campaign metrics turnaround time
+
+4. Senior Web Developer | InMobi (Jul 2021 – Jan 2022, Bengaluru, India)
+   - 100+ interactive rich media ad units using Celtra, HTML, CSS, JavaScript
+   - 20% boost in ad delivery rate through Celtra customizations
+   - React-based internal gallery platform for client presentations
+   - Mentored junior engineers
+
+5. Software Engineer | Y Media Labs (Aug 2018 – Jul 2021, Bengaluru, India)
+   - Led front-end for State Farm's 100forGood website (React JS, Redux): 30% performance gain, 40% accessibility improvement
+   - Fixed 20+ high-priority issues in Hill-Rom CMS
+   - Built AR-based e-commerce proof of concept (AR.js)
+   - Two "YML Quarterly Awards" for leadership and mentoring
+
+SKILLS & TECHNOLOGIES
+Languages: JavaScript, TypeScript, Python, Java, HTML5, CSS3
+Frameworks/Libraries: React JS, Next.js, Node.js, Redux, Spring Boot, Twig
+Data/Cloud: PySpark, Databricks, Azure, MongoDB, MySQL, Docker
+Ad Tech Tools: Celtra (rich media ad creation platform), InMobi DSP, StoreKit ad networks
+Other: Git, REST APIs, Accessibility (WCAG 2.1), AR.js, Firebase
+
+AD TECH KNOWLEDGE
+Nikhil has deep hands-on ad tech experience from 2.5+ years at InMobi:
+- DSP (Demand Side Platform): built automated reporting dashboards for InMobi's DSP
+- Rich Media Ads: created 100+ interactive ad units using Celtra; understands MRAID, HTML5 ads, creative optimization
+- Campaign Analytics: built real-time data pipelines and dashboards for campaign KPIs (CTR, impressions, delivery rate)
+- iOS Ad Networks: integrated StoreKit ad network campaigns, Apple SKAdNetwork, privacy-preserving attribution
+- Ad Delivery & Performance: deep understanding of ad serving, impression tracking, delivery optimization (boosted delivery rate 20%)
+- Programmatic Advertising: familiar with DSP/SSP ecosystem, campaign management, targeting, and reporting
+
+PROJECTS
+1. CSMC (csmc.utdallas.edu) — Java, Spring Boot, Twig | Full-stack scheduling app for UTD
+2. 100forGood (State Farm) — React JS, Node JS, PWA, Accessibility | Award-winning CSR web app
+3. InMobi DSP Dashboard — React, Node, MongoDB, PySpark, Azure APIs | Automated reporting dashboard
+4. AR Shopping World (arshoppingworld.netlify.app) — React JS, AR.js, Firebase | AR e-commerce experience
+5. React Accessible Calendar (npm) — React, JS, WCAG 2.1 | Open-source accessible calendar component
+
+AVAILABILITY & JOB SEARCH
+- Actively looking for full-time roles
+- Open to: Software Engineer, Front-end, Full Stack, Solutions Engineer, Data Engineer
+- Graduating May 2026, available for full-time immediately after (or potentially sooner with part-time/co-op)
+- Willing to relocate
+`;
+
+// ─── Send message ─────────────────────────────────────────
+async function sendMessage() {
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  document.getElementById('nh-suggestions').style.display = 'none';
+  appendMessage('user', text);
+  conversationHistory.push({ role: 'user', content: text });
+
+  setTyping(true);
+  document.getElementById('nh-send-btn').disabled = true;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: conversationHistory
+      })
+    });
+
+    const data = await response.json();
+    const reply = data.content?.[0]?.text || "Sorry, I couldn't get a response right now.";
+
+    conversationHistory.push({ role: 'assistant', content: reply });
+    setTyping(false);
+    appendMessage('bot', reply);
+  } catch (err) {
+    setTyping(false);
+    appendMessage('bot', "Oops, something went wrong. Please try again in a moment!");
+    conversationHistory.pop();
+  }
+
+  document.getElementById('nh-send-btn').disabled = false;
+}
+
+function askSuggestion(btn) {
+  input.value = btn.textContent;
+  sendMessage();
+}
+
+// ─── Helpers ──────────────────────────────────────────────
+function appendMessage(role, text) {
+  const messages = document.getElementById('nh-messages');
+  const div = document.createElement('div');
+  div.className = `nh-msg ${role}`;
+  div.innerHTML = `
+    <div class="nh-msg-icon">${role === 'bot' ? '🤖' : '🧑'}</div>
+    <div class="nh-bubble">${escapeHtml(text).replace(/\n/g, '<br>')}</div>
+  `;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function setTyping(show) {
+  const t = document.getElementById('nh-typing');
+  t.classList.toggle('visible', show);
+  if (show) {
+    const messages = document.getElementById('nh-messages');
+    messages.scrollTop = messages.scrollHeight;
+  }
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>

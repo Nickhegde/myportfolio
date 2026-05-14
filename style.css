@@ -21,7 +21,7 @@ body {
 .fade-in-on-scroll {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .fade-in-on-scroll.visible {
     opacity: 1;
@@ -88,6 +88,7 @@ nav ul li a {
 section {
     padding: 30px 20px;
 }
+
 .intro-container {
     position: relative;
     z-index: 2;
@@ -316,7 +317,6 @@ section {
 }
 .custom-project-card {
     background: rgba(255, 255, 255, 0.05);
-    flex: 1;
     text-align: center;
     padding: 15px;
     cursor: pointer;
