@@ -11,10 +11,15 @@ function openChat() {
 fab.addEventListener('click', () => {
   document.getElementById('nh-chat-label').style.display = 'none';
   panel.classList.toggle('open');
-  if (panel.classList.contains('open')) input.focus();
+  if (panel.classList.contains('open')) {
+    input.focus();
+  } else {
+    document.getElementById('nh-chat-label').style.display = 'block';
+  }
 });
 document.getElementById('nh-close-btn').addEventListener('click', () => {
   panel.classList.remove('open');
+  document.getElementById('nh-chat-label').style.display = 'block';
 });
 input.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
