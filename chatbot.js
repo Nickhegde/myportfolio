@@ -32,6 +32,7 @@ PERSONAL
 - Phone: 512-992-6442
 - LinkedIn: linkedin.com/in/hegde-nikhil
 - Visa/Status: On F-1 student visa (OPT eligible upon graduation in May 2026); authorized to work in the US
+- GitHub: github.com/nikhilhegde
 
 EDUCATION
 - M.S. Computer Software Engineering — University of Texas at Dallas (Aug 2024 – May 2026)
@@ -131,6 +132,19 @@ SMART AMENITIES ASSISTANCE SYSTEM (Academic Project — UTD SE 6387, May 2026)
 - JWT stateless auth (python-jose, HS256) — eliminated DB tokens table and consistency bugs
 - Delivered all milestones on schedule across 2 iterations; 100% requirements traceability
 - Tech: Kotlin, Jetpack Compose, Python, FastAPI, MySQL, AWS EC2, Docker, NetworkX, JWT
+
+FRONTEND SYSTEM DESIGN & ARCHITECTURE
+Nikhil is a strong frontend architect, not just a developer:
+- Designed and architected the full Android frontend for Smart Amenities (DFW Terminal D) — MVVM architecture, Hilt dependency injection, Jetpack Compose, offline resilience via Room SQLite cache
+- Defined all API contracts (ISmartAmenities, IWayfinderData) before development began, enabling parallel frontend/backend development with zero blocking across both iterations
+- Architected React-based internal gallery platform at InMobi for client presentations
+- Led front-end architecture for State Farm's 100forGood (React JS, Redux, PWA) — 30% performance gain, 40% accessibility improvement
+- Built accessible component systems: react-accessible-calendar (open-source npm package, WCAG 2.1 compliant, keyboard navigation, screen readers, high-contrast themes)
+- Understands frontend performance optimization: code splitting, modularization, page load time reduction
+- Experience with component-driven architecture, state management (Redux), and progressive web apps
+- Mentored junior engineers on front-end best practices at both InMobi and Y Media Labs
+
+When asked about system design, Nikhil can speak to both backend distributed systems AND frontend architecture — he is a full-stack engineer who has designed complete systems end-to-end.
 
 AVAILABILITY & JOB SEARCH
 - Actively looking for full-time roles
