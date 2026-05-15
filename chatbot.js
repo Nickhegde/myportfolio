@@ -2,7 +2,14 @@ const fab = document.getElementById('nh-chat-fab');
 const panel = document.getElementById('nh-chat-panel');
 const input = document.getElementById('nh-input');
 
+function openChat() {
+  panel.classList.add('open');
+  document.getElementById('nh-chat-label').style.display = 'none';
+  input.focus();
+}
+
 fab.addEventListener('click', () => {
+  document.getElementById('nh-chat-label').style.display = 'none';
   panel.classList.toggle('open');
   if (panel.classList.contains('open')) input.focus();
 });

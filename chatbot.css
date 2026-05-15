@@ -1,3 +1,22 @@
+ #nh-chat-label {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  background: #25af1d;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  animation: nh-bounce 2s infinite;
+  cursor: pointer;
+  z-index: 99999;
+}
+@keyframes nh-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
  #nh-chat-fab {
       position: fixed;
       bottom: 28px;
